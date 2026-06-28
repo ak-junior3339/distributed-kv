@@ -11,6 +11,7 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"sync"
 
 	pb "github.com/iips-oss/distributed-kv/protobuf"
 	"github.com/tidwall/btree"
@@ -33,6 +34,7 @@ var (
 type server struct {
 	pb.UnimplementedKvstoreServer
 	store btree.Map[string, string]
+	mu    sync.RWMutex
 }
 
 // these are methods to server struct which is how it implements the KvstoreServer interface
@@ -42,7 +44,9 @@ type server struct {
 func (s *server) KvGet(_ context.Context, in *pb.OpKeyReq) (*pb.OpGetRes, error) {
 	key := in.GetKey()
 	log.Printf("log: GET %v", key)
+	s.mu.RLock() //Multiple clients can read simultaneously
 	value, ok := s.store.Get(key)
+	s.mu.RUnlock() //unlock
 	if value == "" {
 		value = "(nil)"
 	}
@@ -54,16 +58,20 @@ func (s *server) KvSet(_ context.Context, in *pb.SetReq) (*pb.OpRes, error) {
 	key := in.GetKey()
 	value := in.GetValue()
 	log.Printf("log: SET %v %v", key, value)
+	s.mu.Lock() //Exclusive write lock
 	s.store.Set(key, value)
 	set_value, _ := s.store.Get(key)
 	log.Printf("store: SET %v = %v", key, set_value)
+	s.mu.Unlock() //Lock Released
 	return &pb.OpRes{}, nil
 }
 
 func (s *server) KvDel(_ context.Context, in *pb.OpKeyReq) (*pb.OpRes, error) {
 	key := in.GetKey()
 	log.Printf("log: DEL %v", key)
+	s.mu.Lock() //Exclusive write lock
 	s.store.Delete(key)
+	s.mu.Unlock() //Lock Released
 	return &pb.OpRes{}, nil
 }
 
@@ -74,7 +82,11 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterKvstoreServer(s, &server{})
+	srv := &server{
+		store: btree.Map[string, string]{},
+	}
+	pb.RegisterKvstoreServer(s, srv)
+	//pb.RegisterKvstoreServer(s, &server{})
 	log.Printf("server listening at %v", lis.Addr())
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)

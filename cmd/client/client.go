@@ -46,8 +46,8 @@ func main() {
 			return
 		}
 		cmd := strings.Split(line, " ")
-		if len(cmd) > 3 || len(cmd) < 2 {
-			fmt.Printf("Error: invalid command syntax\n")
+		if len(cmd) < 2 {
+			fmt.Printf("Error: invalid command syntax (too few arguments)\n")
 			continue
 		}
 		method := cmd[0]
@@ -55,37 +55,53 @@ func main() {
 
 		switch method {
 		case "GET":
+			if len(cmd) != 2 {
+				fmt.Printf("Error: GET command requires exactly 1 argument. Usage: GET <key>\n")
+				continue
+			}
 			ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 			r, err := c.KvGet(ctx, &pb.OpKeyReq{Key: key})
 			cancel()
 			if err != nil {
-				log.Fatal(err)
+				fmt.Printf("RPC Error (GET): %v\n", err)
+				continue
 			}
 			value := r.GetValue()
 			if value != "" {
 				fmt.Printf("%s\n", r.GetValue())
 			}
 		case "SET":
-			if len(cmd) != 3 {
-				fmt.Printf("Error: two arguments required\n")
+			if len(cmd) < 3 {
+				fmt.Printf("Error: SET command requires a value. Usage: SET <key> <value>\n")
+				continue
 			}
-			value := cmd[2]
+			value := strings.Join(cmd[2:], " ")
+			// value := cmd[2]
 			ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 			_, err := c.KvSet(ctx, &pb.SetReq{Key: key, Value: value})
 			cancel()
 			if err != nil {
-				log.Fatal(err)
+				fmt.Printf("RPC Error (SET): %v\n", err)
+				continue
 			}
 		case "DEL":
+			if len(cmd) != 2 {
+				fmt.Printf("Error: DEL command requires exactly 1 argument. Usage: DEL <key>\n")
+				continue
+			}
 			ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 			_, err := c.KvDel(ctx, &pb.OpKeyReq{Key: key})
 			cancel()
 			if err != nil {
-				log.Fatal(err)
+				fmt.Printf("RPC Error (DEL): %v\n", err)
+				continue
 			}
 		case "exit": // maybe handle ctrl+c/d singles too
 			fmt.Printf("QUITING\n")
 			return
+		default:
+			fmt.Printf("Error: unknown command %q. Use GET, SET, DEL, or exit.\n", method)
+			continue
 		}
 	}
 }

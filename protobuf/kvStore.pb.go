@@ -2,16 +2,17 @@
 // versions:
 // 	protoc-gen-go v1.36.11
 // 	protoc        v7.35.1
-// source: kvStore.proto
+// source: protobuf/kvStore.proto
 
-package __
+package protobuf
 
 import (
-	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
-	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
+
+	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
+	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 )
 
 const (
@@ -30,7 +31,7 @@ type OpKeyReq struct {
 
 func (x *OpKeyReq) Reset() {
 	*x = OpKeyReq{}
-	mi := &file_kvStore_proto_msgTypes[0]
+	mi := &file_protobuf_kvStore_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -42,7 +43,7 @@ func (x *OpKeyReq) String() string {
 func (*OpKeyReq) ProtoMessage() {}
 
 func (x *OpKeyReq) ProtoReflect() protoreflect.Message {
-	mi := &file_kvStore_proto_msgTypes[0]
+	mi := &file_protobuf_kvStore_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -55,7 +56,7 @@ func (x *OpKeyReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OpKeyReq.ProtoReflect.Descriptor instead.
 func (*OpKeyReq) Descriptor() ([]byte, []int) {
-	return file_kvStore_proto_rawDescGZIP(), []int{0}
+	return file_protobuf_kvStore_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *OpKeyReq) GetKey() string {
@@ -75,7 +76,7 @@ type SetReq struct {
 
 func (x *SetReq) Reset() {
 	*x = SetReq{}
-	mi := &file_kvStore_proto_msgTypes[1]
+	mi := &file_protobuf_kvStore_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -87,7 +88,7 @@ func (x *SetReq) String() string {
 func (*SetReq) ProtoMessage() {}
 
 func (x *SetReq) ProtoReflect() protoreflect.Message {
-	mi := &file_kvStore_proto_msgTypes[1]
+	mi := &file_protobuf_kvStore_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -100,7 +101,7 @@ func (x *SetReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetReq.ProtoReflect.Descriptor instead.
 func (*SetReq) Descriptor() ([]byte, []int) {
-	return file_kvStore_proto_rawDescGZIP(), []int{1}
+	return file_protobuf_kvStore_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *SetReq) GetKey() string {
@@ -125,7 +126,7 @@ type OpRes struct {
 
 func (x *OpRes) Reset() {
 	*x = OpRes{}
-	mi := &file_kvStore_proto_msgTypes[2]
+	mi := &file_protobuf_kvStore_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -137,7 +138,7 @@ func (x *OpRes) String() string {
 func (*OpRes) ProtoMessage() {}
 
 func (x *OpRes) ProtoReflect() protoreflect.Message {
-	mi := &file_kvStore_proto_msgTypes[2]
+	mi := &file_protobuf_kvStore_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -150,7 +151,7 @@ func (x *OpRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OpRes.ProtoReflect.Descriptor instead.
 func (*OpRes) Descriptor() ([]byte, []int) {
-	return file_kvStore_proto_rawDescGZIP(), []int{2}
+	return file_protobuf_kvStore_proto_rawDescGZIP(), []int{2}
 }
 
 type OpGetRes struct {
@@ -162,7 +163,7 @@ type OpGetRes struct {
 
 func (x *OpGetRes) Reset() {
 	*x = OpGetRes{}
-	mi := &file_kvStore_proto_msgTypes[3]
+	mi := &file_protobuf_kvStore_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -174,7 +175,7 @@ func (x *OpGetRes) String() string {
 func (*OpGetRes) ProtoMessage() {}
 
 func (x *OpGetRes) ProtoReflect() protoreflect.Message {
-	mi := &file_kvStore_proto_msgTypes[3]
+	mi := &file_protobuf_kvStore_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -187,7 +188,7 @@ func (x *OpGetRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OpGetRes.ProtoReflect.Descriptor instead.
 func (*OpGetRes) Descriptor() ([]byte, []int) {
-	return file_kvStore_proto_rawDescGZIP(), []int{3}
+	return file_protobuf_kvStore_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *OpGetRes) GetValue() string {
@@ -197,11 +198,11 @@ func (x *OpGetRes) GetValue() string {
 	return ""
 }
 
-var File_kvStore_proto protoreflect.FileDescriptor
+var File_protobuf_kvStore_proto protoreflect.FileDescriptor
 
-const file_kvStore_proto_rawDesc = "" +
+const file_protobuf_kvStore_proto_rawDesc = "" +
 	"\n" +
-	"\rkvStore.proto\x12\akvStore\"\x1c\n" +
+	"\x16protobuf/kvStore.proto\x12\akvStore\"\x1c\n" +
 	"\bopKeyReq\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\"0\n" +
 	"\x06setReq\x12\x10\n" +
@@ -213,28 +214,28 @@ const file_kvStore_proto_rawDesc = "" +
 	"\akvstore\x120\n" +
 	"\x06kv_get\x12\x11.kvStore.opKeyReq\x1a\x11.kvStore.opGetRes\"\x00\x12+\n" +
 	"\x06kv_set\x12\x0f.kvStore.setReq\x1a\x0e.kvStore.opRes\"\x00\x12-\n" +
-	"\x06kv_del\x12\x11.kvStore.opKeyReq\x1a\x0e.kvStore.opRes\"\x00B\x03Z\x01.b\x06proto3"
+	"\x06kv_del\x12\x11.kvStore.opKeyReq\x1a\x0e.kvStore.opRes\"\x00B-Z+github.com/iips-oss/distributed-kv/protobufb\x06proto3"
 
 var (
-	file_kvStore_proto_rawDescOnce sync.Once
-	file_kvStore_proto_rawDescData []byte
+	file_protobuf_kvStore_proto_rawDescOnce sync.Once
+	file_protobuf_kvStore_proto_rawDescData []byte
 )
 
-func file_kvStore_proto_rawDescGZIP() []byte {
-	file_kvStore_proto_rawDescOnce.Do(func() {
-		file_kvStore_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_kvStore_proto_rawDesc), len(file_kvStore_proto_rawDesc)))
+func file_protobuf_kvStore_proto_rawDescGZIP() []byte {
+	file_protobuf_kvStore_proto_rawDescOnce.Do(func() {
+		file_protobuf_kvStore_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_protobuf_kvStore_proto_rawDesc), len(file_protobuf_kvStore_proto_rawDesc)))
 	})
-	return file_kvStore_proto_rawDescData
+	return file_protobuf_kvStore_proto_rawDescData
 }
 
-var file_kvStore_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-var file_kvStore_proto_goTypes = []any{
+var file_protobuf_kvStore_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_protobuf_kvStore_proto_goTypes = []any{
 	(*OpKeyReq)(nil), // 0: kvStore.opKeyReq
 	(*SetReq)(nil),   // 1: kvStore.setReq
 	(*OpRes)(nil),    // 2: kvStore.opRes
 	(*OpGetRes)(nil), // 3: kvStore.opGetRes
 }
-var file_kvStore_proto_depIdxs = []int32{
+var file_protobuf_kvStore_proto_depIdxs = []int32{
 	0, // 0: kvStore.kvstore.kv_get:input_type -> kvStore.opKeyReq
 	1, // 1: kvStore.kvstore.kv_set:input_type -> kvStore.setReq
 	0, // 2: kvStore.kvstore.kv_del:input_type -> kvStore.opKeyReq
@@ -248,26 +249,26 @@ var file_kvStore_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_kvStore_proto_init() }
-func file_kvStore_proto_init() {
-	if File_kvStore_proto != nil {
+func init() { file_protobuf_kvStore_proto_init() }
+func file_protobuf_kvStore_proto_init() {
+	if File_protobuf_kvStore_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_kvStore_proto_rawDesc), len(file_kvStore_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_protobuf_kvStore_proto_rawDesc), len(file_protobuf_kvStore_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_kvStore_proto_goTypes,
-		DependencyIndexes: file_kvStore_proto_depIdxs,
-		MessageInfos:      file_kvStore_proto_msgTypes,
+		GoTypes:           file_protobuf_kvStore_proto_goTypes,
+		DependencyIndexes: file_protobuf_kvStore_proto_depIdxs,
+		MessageInfos:      file_protobuf_kvStore_proto_msgTypes,
 	}.Build()
-	File_kvStore_proto = out.File
-	file_kvStore_proto_goTypes = nil
-	file_kvStore_proto_depIdxs = nil
+	File_protobuf_kvStore_proto = out.File
+	file_protobuf_kvStore_proto_goTypes = nil
+	file_protobuf_kvStore_proto_depIdxs = nil
 }

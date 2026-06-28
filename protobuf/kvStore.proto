@@ -1,5 +1,5 @@
 syntax = "proto3";
-option go_package = ".";
+option go_package = "github.com/iips-oss/distributed-kv/protobuf";
 
 package kvStore;
 
